@@ -1,298 +1,375 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Age Calculator</title>
-    <meta name="description" content="Calculate your exact age in years, months, and days.">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Age Calculator</title>
 
-    <style>
-        *{
-            margin:0;
-            padding:0;
-            box-sizing:border-box;
-            font-family:Arial, Helvetica, sans-serif;
-        }
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
 
-        body{
-            background:#f5f7fb;
-            display:flex;
-            justify-content:center;
-            align-items:center;
-            min-height:100vh;
-            padding:20px;
-        }
+body{
+    background:#eef2f7;
+    padding:30px;
+}
 
-        .container{
-            width:100%;
-            max-width:700px;
-            background:#fff;
-            padding:30px;
-            border-radius:12px;
-            box-shadow:0 10px 25px rgba(0,0,0,.12);
-        }
+.container{
+    max-width:900px;
+    margin:auto;
+    background:#fff;
+    border-radius:12px;
+    padding:30px;
+    box-shadow:0 10px 25px rgba(0,0,0,.12);
+}
 
-        h1{
-            text-align:center;
-            margin-bottom:10px;
-        }
+h1{
+    text-align:center;
+    color:#1d4ed8;
+    margin-bottom:10px;
+}
 
-        p{
-            text-align:center;
-            color:#666;
-            margin-bottom:30px;
-        }
+.subtitle{
+    text-align:center;
+    color:#666;
+    margin-bottom:30px;
+}
 
-        .input-group{
-            margin-bottom:20px;
-        }
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+}
 
-        label{
-            display:block;
-            margin-bottom:8px;
-            font-weight:bold;
-        }
+label{
+    display:block;
+    margin-bottom:8px;
+    font-weight:bold;
+}
 
-        input[type="date"]{
-            width:100%;
-            padding:12px;
-            border:1px solid #ccc;
-            border-radius:8px;
-            font-size:16px;
-        }
+input[type=date]{
+    width:100%;
+    padding:12px;
+    border-radius:8px;
+    border:1px solid #ccc;
+    font-size:16px;
+}
 
-        .buttons{
-            display:flex;
-            gap:10px;
-            margin-top:25px;
-        }
+.buttons{
+    display:flex;
+    gap:10px;
+    margin-top:25px;
+}
 
-        button{
-            flex:1;
-            padding:12px;
-            border:none;
-            border-radius:8px;
-            cursor:pointer;
-            font-size:16px;
-        }
+button{
+    flex:1;
+    padding:14px;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+    font-size:16px;
+}
 
-        #calculateBtn{
-            background:#2563eb;
-            color:white;
-        }
+.primary{
+    background:#2563eb;
+    color:white;
+}
 
-        #calculateBtn:hover{
-            background:#1d4ed8;
-        }
+.primary:hover{
+    background:#1d4ed8;
+}
 
-        #clearBtn{
-            background:#e5e7eb;
-        }
+.secondary{
+    background:#e5e7eb;
+}
 
-        #result{
-            margin-top:30px;
-            display:none;
-        }
+.result{
+    display:none;
+    margin-top:35px;
+}
 
-        .card{
-            display:grid;
-            grid-template-columns:repeat(3,1fr);
-            gap:15px;
-            margin-bottom:25px;
-        }
+.summary{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:15px;
+    margin-bottom:30px;
+}
 
-        .box{
-            background:#2563eb;
-            color:white;
-            padding:20px;
-            border-radius:10px;
-            text-align:center;
-        }
+.box{
+    background:#2563eb;
+    color:white;
+    text-align:center;
+    padding:20px;
+    border-radius:10px;
+}
 
-        .box h2{
-            font-size:36px;
-            margin-bottom:8px;
-        }
+.box h2{
+    font-size:40px;
+}
 
-        table{
-            width:100%;
-            border-collapse:collapse;
-        }
+table{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:20px;
+}
 
-        table td{
-            padding:12px;
-            border-bottom:1px solid #ddd;
-        }
+table td{
+    padding:12px;
+    border-bottom:1px solid #ddd;
+}
 
-        table td:last-child{
-            text-align:right;
-            font-weight:bold;
-        }
+table td:last-child{
+    text-align:right;
+    font-weight:bold;
+}
 
-        @media(max-width:600px){
+.info{
+    margin-top:30px;
+    background:#f8f8f8;
+    padding:20px;
+    border-radius:10px;
+}
 
-            .card{
-                grid-template-columns:1fr;
-            }
+.info p{
+    margin:8px 0;
+}
 
-            .buttons{
-                flex-direction:column;
-            }
+@media(max-width:700px){
 
-        }
-    </style>
+.grid{
+grid-template-columns:1fr;
+}
+
+.summary{
+grid-template-columns:1fr;
+}
+
+.buttons{
+flex-direction:column;
+}
+
+}
+</style>
+
 </head>
 <body>
 
 <div class="container">
 
-    <h1>Age Calculator</h1>
+<h1>Age Calculator</h1>
 
-    <p>Calculate your exact age instantly.</p>
+<p class="subtitle">
+Calculate your exact age instantly.
+</p>
 
-    <div class="input-group">
-        <label>Date of Birth</label>
-        <input type="date" id="dob">
-    </div>
+<div class="grid">
 
-    <div class="input-group">
-        <label>Age at Date</label>
-        <input type="date" id="today">
-    </div>
+<div>
+<label>Date of Birth</label>
+<input type="date" id="dob">
+</div>
 
-    <div class="buttons">
-        <button id="calculateBtn">Calculate</button>
-        <button id="clearBtn">Clear</button>
-    </div>
+<div>
+<label>Age at Date</label>
+<input type="date" id="today">
+</div>
 
-    <div id="result">
+</div>
 
-        <div class="card">
+<div class="buttons">
 
-            <div class="box">
-                <h2 id="years">0</h2>
-                Years
-            </div>
+<button class="primary" onclick="calculateAge()">
+Calculate
+</button>
 
-            <div class="box">
-                <h2 id="months">0</h2>
-                Months
-            </div>
+<button class="secondary" onclick="setToday()">
+Today
+</button>
 
-            <div class="box">
-                <h2 id="days">0</h2>
-                Days
-            </div>
+<button class="secondary" onclick="clearAll()">
+Clear
+</button>
 
-        </div>
+</div>
 
-        <table>
+<div id="result" class="result">
 
-            <tr>
-                <td>Total Months</td>
-                <td id="totalMonths"></td>
-            </tr>
+<div class="summary">
 
-            <tr>
-                <td>Total Weeks</td>
-                <td id="totalWeeks"></td>
-            </tr>
+<div class="box">
+<h2 id="years">0</h2>
+Years
+</div>
 
-            <tr>
-                <td>Total Days</td>
-                <td id="totalDays"></td>
-            </tr>
+<div class="box">
+<h2 id="months">0</h2>
+Months
+</div>
 
-            <tr>
-                <td>Total Hours</td>
-                <td id="totalHours"></td>
-            </tr>
+<div class="box">
+<h2 id="days">0</h2>
+Days
+</div>
 
-            <tr>
-                <td>Total Minutes</td>
-                <td id="totalMinutes"></td>
-            </tr>
+</div>
 
-            <tr>
-                <td>Total Seconds</td>
-                <td id="totalSeconds"></td>
-            </tr>
+<table>
 
-        </table>
+<tr><td>Total Months</td><td id="totalMonths"></td></tr>
+<tr><td>Total Weeks</td><td id="totalWeeks"></td></tr>
+<tr><td>Total Days</td><td id="totalDays"></td></tr>
+<tr><td>Total Hours</td><td id="totalHours"></td></tr>
+<tr><td>Total Minutes</td><td id="totalMinutes"></td></tr>
+<tr><td>Total Seconds</td><td id="totalSeconds"></td></tr>
 
-    </div>
+</table>
+
+<div class="info">
+
+<h2>Additional Information</h2>
+
+<p><strong>Born on:</strong> <span id="weekday"></span></p>
+
+<p><strong>Next Birthday:</strong> <span id="nextBirthday"></span></p>
+
+<p><strong>Days Remaining:</strong> <span id="daysLeft"></span></p>
+
+<p><strong>Leap Year Birth:</strong> <span id="leap"></span></p>
+
+</div>
+
+</div>
 
 </div>
 
 <script>
 
-const dob=document.getElementById("dob");
-const today=document.getElementById("today");
+const monthsName=[
+"January","February","March","April","May","June",
+"July","August","September","October","November","December"
+];
 
-today.valueAsDate=new Date();
+setToday();
 
-document.getElementById("calculateBtn").onclick=function(){
+function setToday(){
+document.getElementById("today").valueAsDate=new Date();
+}
 
-    if(!dob.value){
-        alert("Please select your date of birth.");
-        return;
-    }
+function clearAll(){
 
-    let birth=new Date(dob.value);
-    let current=new Date(today.value);
+document.getElementById("dob").value="";
+setToday();
+document.getElementById("result").style.display="none";
 
-    if(birth>current){
-        alert("Birth date cannot be after selected date.");
-        return;
-    }
+}
 
-    let years=current.getFullYear()-birth.getFullYear();
-    let months=current.getMonth()-birth.getMonth();
-    let days=current.getDate()-birth.getDate();
+function calculateAge(){
 
-    if(days<0){
-        months--;
-        let prevMonth=new Date(current.getFullYear(),current.getMonth(),0);
-        days+=prevMonth.getDate();
-    }
+const dob=document.getElementById("dob").value;
 
-    if(months<0){
-        years--;
-        months+=12;
-    }
+const current=document.getElementById("today").value;
 
-    let diff=current-birth;
+if(dob==""){
+alert("Please select Date of Birth");
+return;
+}
 
-    let totalDays=Math.floor(diff/(1000*60*60*24));
-    let totalWeeks=Math.floor(totalDays/7);
-    let totalHours=Math.floor(diff/(1000*60*60));
-    let totalMinutes=Math.floor(diff/(1000*60));
-    let totalSeconds=Math.floor(diff/1000);
-    let totalMonths=years*12+months;
+const birth=new Date(dob);
 
-    document.getElementById("years").textContent=years;
-    document.getElementById("months").textContent=months;
-    document.getElementById("days").textContent=days;
+const today=new Date(current);
 
-    document.getElementById("totalMonths").textContent=totalMonths;
-    document.getElementById("totalWeeks").textContent=totalWeeks;
-    document.getElementById("totalDays").textContent=totalDays;
-    document.getElementById("totalHours").textContent=totalHours;
-    document.getElementById("totalMinutes").textContent=totalMinutes;
-    document.getElementById("totalSeconds").textContent=totalSeconds.toLocaleString();
+if(birth>today){
+alert("Birth date cannot be after selected date.");
+return;
+}
 
-    document.getElementById("result").style.display="block";
+let years=today.getFullYear()-birth.getFullYear();
+let months=today.getMonth()-birth.getMonth();
+let days=today.getDate()-birth.getDate();
 
-};
+if(days<0){
 
-document.getElementById("clearBtn").onclick=function(){
+months--;
 
-    dob.value="";
-    today.valueAsDate=new Date();
+let prevMonth=new Date(today.getFullYear(),today.getMonth(),0);
 
-    document.getElementById("result").style.display="none";
+days+=prevMonth.getDate();
 
-};
+}
+
+if(months<0){
+
+years--;
+
+months+=12;
+
+}
+
+let diff=today-birth;
+
+let totalDays=Math.floor(diff/(1000*60*60*24));
+
+let totalWeeks=Math.floor(totalDays/7);
+
+let totalHours=Math.floor(diff/(1000*60*60));
+
+let totalMinutes=Math.floor(diff/(1000*60));
+
+let totalSeconds=Math.floor(diff/1000);
+
+let totalMonths=years*12+months;
+
+document.getElementById("years").textContent=years;
+document.getElementById("months").textContent=months;
+document.getElementById("days").textContent=days;
+
+document.getElementById("totalMonths").textContent=totalMonths.toLocaleString();
+document.getElementById("totalWeeks").textContent=totalWeeks.toLocaleString();
+document.getElementById("totalDays").textContent=totalDays.toLocaleString();
+document.getElementById("totalHours").textContent=totalHours.toLocaleString();
+document.getElementById("totalMinutes").textContent=totalMinutes.toLocaleString();
+document.getElementById("totalSeconds").textContent=totalSeconds.toLocaleString();
+
+const weekdayNames=[
+"Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"
+];
+
+document.getElementById("weekday").textContent=
+weekdayNames[birth.getDay()];
+
+let nextBirthday=new Date(
+today.getFullYear(),
+birth.getMonth(),
+birth.getDate()
+);
+
+if(nextBirthday<today){
+
+nextBirthday.setFullYear(today.getFullYear()+1);
+
+}
+
+let remain=Math.ceil((nextBirthday-today)/(1000*60*60*24));
+
+document.getElementById("daysLeft").textContent=remain+" day(s)";
+
+document.getElementById("nextBirthday").textContent=
+nextBirthday.getDate()+" "+
+monthsName[nextBirthday.getMonth()]+" "+
+nextBirthday.getFullYear();
+
+let leap=((birth.getFullYear()%4==0&&birth.getFullYear()%100!=0)||(birth.getFullYear()%400==0));
+
+document.getElementById("leap").textContent=
+leap?"Yes":"No";
+
+document.getElementById("result").style.display="block";
+
+}
 
 </script>
 
