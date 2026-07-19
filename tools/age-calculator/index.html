@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Age Calculator</title>
+    <meta name="description" content="Calculate your exact age in years, months, and days.">
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:Arial, Helvetica, sans-serif;
+        }
+
+        body{
+            background:#f5f7fb;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            min-height:100vh;
+            padding:20px;
+        }
+
+        .container{
+            width:100%;
+            max-width:700px;
+            background:#fff;
+            padding:30px;
+            border-radius:12px;
+            box-shadow:0 10px 25px rgba(0,0,0,.12);
+        }
+
+        h1{
+            text-align:center;
+            margin-bottom:10px;
+        }
+
+        p{
+            text-align:center;
+            color:#666;
+            margin-bottom:30px;
+        }
+
+        .input-group{
+            margin-bottom:20px;
+        }
+
+        label{
+            display:block;
+            margin-bottom:8px;
+            font-weight:bold;
+        }
+
+        input[type="date"]{
+            width:100%;
+            padding:12px;
+            border:1px solid #ccc;
+            border-radius:8px;
+            font-size:16px;
+        }
+
+        .buttons{
+            display:flex;
+            gap:10px;
+            margin-top:25px;
+        }
+
+        button{
+            flex:1;
+            padding:12px;
+            border:none;
+            border-radius:8px;
+            cursor:pointer;
+            font-size:16px;
+        }
+
+        #calculateBtn{
+            background:#2563eb;
+            color:white;
+        }
+
+        #calculateBtn:hover{
+            background:#1d4ed8;
+        }
+
+        #clearBtn{
+            background:#e5e7eb;
+        }
+
+        #result{
+            margin-top:30px;
+            display:none;
+        }
+
+        .card{
+            display:grid;
+            grid-template-columns:repeat(3,1fr);
+            gap:15px;
+            margin-bottom:25px;
+        }
+
+        .box{
+            background:#2563eb;
+            color:white;
+            padding:20px;
+            border-radius:10px;
+            text-align:center;
+        }
+
+        .box h2{
+            font-size:36px;
+            margin-bottom:8px;
+        }
+
+        table{
+            width:100%;
+            border-collapse:collapse;
+        }
+
+        table td{
+            padding:12px;
+            border-bottom:1px solid #ddd;
+        }
+
+        table td:last-child{
+            text-align:right;
+            font-weight:bold;
+        }
+
+        @media(max-width:600px){
+
+            .card{
+                grid-template-columns:1fr;
+            }
+
+            .buttons{
+                flex-direction:column;
+            }
+
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+
+    <h1>Age Calculator</h1>
+
+    <p>Calculate your exact age instantly.</p>
+
+    <div class="input-group">
+        <label>Date of Birth</label>
+        <input type="date" id="dob">
+    </div>
+
+    <div class="input-group">
+        <label>Age at Date</label>
+        <input type="date" id="today">
+    </div>
+
+    <div class="buttons">
+        <button id="calculateBtn">Calculate</button>
+        <button id="clearBtn">Clear</button>
+    </div>
+
+    <div id="result">
+
+        <div class="card">
+
+            <div class="box">
+                <h2 id="years">0</h2>
+                Years
+            </div>
+
+            <div class="box">
+                <h2 id="months">0</h2>
+                Months
+            </div>
+
+            <div class="box">
+                <h2 id="days">0</h2>
+                Days
+            </div>
+
+        </div>
+
+        <table>
+
+            <tr>
+                <td>Total Months</td>
+                <td id="totalMonths"></td>
+            </tr>
+
+            <tr>
+                <td>Total Weeks</td>
+                <td id="totalWeeks"></td>
+            </tr>
+
+            <tr>
+                <td>Total Days</td>
+                <td id="totalDays"></td>
+            </tr>
+
+            <tr>
+                <td>Total Hours</td>
+                <td id="totalHours"></td>
+            </tr>
+
+            <tr>
+                <td>Total Minutes</td>
+                <td id="totalMinutes"></td>
+            </tr>
+
+            <tr>
+                <td>Total Seconds</td>
+                <td id="totalSeconds"></td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</div>
+
+<script>
+
+const dob=document.getElementById("dob");
+const today=document.getElementById("today");
+
+today.valueAsDate=new Date();
+
+document.getElementById("calculateBtn").onclick=function(){
+
+    if(!dob.value){
+        alert("Please select your date of birth.");
+        return;
+    }
+
+    let birth=new Date(dob.value);
+    let current=new Date(today.value);
+
+    if(birth>current){
+        alert("Birth date cannot be after selected date.");
+        return;
+    }
+
+    let years=current.getFullYear()-birth.getFullYear();
+    let months=current.getMonth()-birth.getMonth();
+    let days=current.getDate()-birth.getDate();
+
+    if(days<0){
+        months--;
+        let prevMonth=new Date(current.getFullYear(),current.getMonth(),0);
+        days+=prevMonth.getDate();
+    }
+
+    if(months<0){
+        years--;
+        months+=12;
+    }
+
+    let diff=current-birth;
+
+    let totalDays=Math.floor(diff/(1000*60*60*24));
+    let totalWeeks=Math.floor(totalDays/7);
+    let totalHours=Math.floor(diff/(1000*60*60));
+    let totalMinutes=Math.floor(diff/(1000*60));
+    let totalSeconds=Math.floor(diff/1000);
+    let totalMonths=years*12+months;
+
+    document.getElementById("years").textContent=years;
+    document.getElementById("months").textContent=months;
+    document.getElementById("days").textContent=days;
+
+    document.getElementById("totalMonths").textContent=totalMonths;
+    document.getElementById("totalWeeks").textContent=totalWeeks;
+    document.getElementById("totalDays").textContent=totalDays;
+    document.getElementById("totalHours").textContent=totalHours;
+    document.getElementById("totalMinutes").textContent=totalMinutes;
+    document.getElementById("totalSeconds").textContent=totalSeconds.toLocaleString();
+
+    document.getElementById("result").style.display="block";
+
+};
+
+document.getElementById("clearBtn").onclick=function(){
+
+    dob.value="";
+    today.valueAsDate=new Date();
+
+    document.getElementById("result").style.display="none";
+
+};
+
+</script>
+
+</body>
+</html>
