@@ -1,0 +1,217 @@
+/* ==========================================================================
+   VARIABLES.CSS
+   Design tokens for the entire site (10,000+ pages share this one file).
+   Never hard-code a color, font, spacing value, radius, or shadow in a page
+   or component file — always reference a token defined here.
+
+   Theme switching works by toggling `data-theme="dark"` on <html>.
+   See js/theme.js for the logic that sets this attribute.
+   ========================================================================== */
+
+:root {
+  /* ---------------------------------------------------------------------
+     COLOR SYSTEM — LIGHT (default)
+     Identity: "precision instrument" — cool ink/slate primary,
+     warm amber accent (the dial/pointer color), calm neutral surface.
+     --------------------------------------------------------------------- */
+  --color-bg: #F7F8FA;              /* page background */
+  --color-surface: #FFFFFF;         /* cards, header, footer, inputs */
+  --color-surface-raised: #FFFFFF;  /* elevated surfaces (modals, dropdowns) */
+  --color-surface-muted: #EEF1F5;   /* subtle fills: code blocks, skeletons */
+
+  --color-text: #10192B;            /* primary text (ink) */
+  --color-text-muted: #55627A;      /* secondary text */
+  --color-text-subtle: #8792A6;     /* tertiary text, placeholders */
+
+  --color-border: #E1E6ED;          /* default border */
+  --color-border-strong: #C9D1DC;   /* emphasized border, input focus rest */
+
+  --color-primary: #23577E;         /* brand — deep slate blue */
+  --color-primary-hover: #1B4560;
+  --color-primary-active: #143649;
+  --color-primary-soft: #E7EFF5;    /* tinted background for primary elements */
+
+  --color-accent: #E07C33;          /* amber — CTAs, highlights, active states */
+  --color-accent-hover: #C96A26;
+  --color-accent-soft: #FBEADB;
+
+  --color-success: #1F9D63;
+  --color-success-soft: #E4F7EE;
+  --color-danger: #D64545;
+  --color-danger-soft: #FBEAEA;
+  --color-warning: #C98A1A;
+  --color-warning-soft: #FBF1DD;
+  --color-info: #2A7DBB;
+  --color-info-soft: #E6F2FA;
+
+  --color-link: var(--color-primary);
+  --color-link-hover: var(--color-primary-hover);
+
+  --color-overlay: rgba(16, 25, 43, 0.55);
+
+  /* Ruler / tick-mark accent used as the site's signature divider */
+  --color-tick: var(--color-border-strong);
+
+  /* ---------------------------------------------------------------------
+     TYPOGRAPHY
+     Display: Space Grotesk (technical, geometric — headings)
+     Body:    Inter (neutral, highly legible at small sizes)
+     Mono:    JetBrains Mono (numbers, code, calculator output)
+     Self-hosted via Phase 3 /fonts/ or loaded with font-display: swap.
+     --------------------------------------------------------------------- */
+  --font-display: "Space Grotesk", "Segoe UI", system-ui, sans-serif;
+  --font-body: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --font-mono: "JetBrains Mono", "SFMono-Regular", Consolas, monospace;
+
+  --fs-xs: 0.75rem;     /* 12px */
+  --fs-sm: 0.875rem;    /* 14px */
+  --fs-base: 1rem;      /* 16px */
+  --fs-md: 1.125rem;    /* 18px */
+  --fs-lg: 1.375rem;    /* 22px */
+  --fs-xl: 1.75rem;     /* 28px */
+  --fs-2xl: 2.25rem;    /* 36px */
+  --fs-3xl: 2.75rem;    /* 44px */
+
+  --lh-tight: 1.2;
+  --lh-normal: 1.5;
+  --lh-relaxed: 1.75;
+
+  --fw-regular: 400;
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  /* ---------------------------------------------------------------------
+     SPACING SCALE (4px base unit)
+     --------------------------------------------------------------------- */
+  --space-1: 0.25rem;   /* 4px */
+  --space-2: 0.5rem;    /* 8px */
+  --space-3: 0.75rem;   /* 12px */
+  --space-4: 1rem;      /* 16px */
+  --space-5: 1.5rem;    /* 24px */
+  --space-6: 2rem;      /* 32px */
+  --space-7: 2.5rem;    /* 40px */
+  --space-8: 3rem;      /* 48px */
+  --space-9: 4rem;      /* 64px */
+  --space-10: 5rem;     /* 80px */
+
+  /* ---------------------------------------------------------------------
+     RADIUS / SHADOW / BORDER
+     --------------------------------------------------------------------- */
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  --shadow-sm: 0 1px 2px rgba(16, 25, 43, 0.06);
+  --shadow-md: 0 4px 12px rgba(16, 25, 43, 0.08);
+  --shadow-lg: 0 12px 32px rgba(16, 25, 43, 0.12);
+  --shadow-focus: 0 0 0 3px rgba(35, 87, 126, 0.35);
+
+  --border-width: 1px;
+
+  /* ---------------------------------------------------------------------
+     LAYOUT
+     --------------------------------------------------------------------- */
+  --container-max: 1200px;
+  --container-narrow: 800px;
+  --header-height: 64px;
+
+  /* ---------------------------------------------------------------------
+     MOTION
+     --------------------------------------------------------------------- */
+  --transition-fast: 120ms ease;
+  --transition-base: 200ms ease;
+  --transition-slow: 320ms ease;
+
+  /* ---------------------------------------------------------------------
+     Z-INDEX SCALE
+     --------------------------------------------------------------------- */
+  --z-header: 100;
+  --z-dropdown: 200;
+  --z-overlay: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+}
+
+/* ==========================================================================
+   COLOR SYSTEM — DARK
+   Not pure black: a deep ink-navy that keeps the same hue family as light
+   mode so brand colors stay recognizable in either theme.
+   ========================================================================== */
+[data-theme="dark"] {
+  --color-bg: #0B1420;
+  --color-surface: #101B2B;
+  --color-surface-raised: #162336;
+  --color-surface-muted: #18253A;
+
+  --color-text: #E9EDF4;
+  --color-text-muted: #A7B2C6;
+  --color-text-subtle: #74809A;
+
+  --color-border: #223349;
+  --color-border-strong: #324A67;
+
+  --color-primary: #5B9BD5;
+  --color-primary-hover: #79AEE0;
+  --color-primary-active: #94C1EA;
+  --color-primary-soft: #16283B;
+
+  --color-accent: #F0A05C;
+  --color-accent-hover: #F5B57D;
+  --color-accent-soft: #2E2013;
+
+  --color-success: #3FC787;
+  --color-success-soft: #12291F;
+  --color-danger: #E8716F;
+  --color-danger-soft: #2E1717;
+  --color-warning: #E0AC44;
+  --color-warning-soft: #2E2410;
+  --color-info: #5CB2E8;
+  --color-info-soft: #122636;
+
+  --color-link: var(--color-primary);
+  --color-link-hover: var(--color-primary-hover);
+
+  --color-overlay: rgba(3, 8, 16, 0.7);
+  --color-tick: var(--color-border-strong);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-md: 0 4px 14px rgba(0, 0, 0, 0.45);
+  --shadow-lg: 0 16px 40px rgba(0, 0, 0, 0.55);
+  --shadow-focus: 0 0 0 3px rgba(91, 155, 213, 0.4);
+}
+
+/* Respect system preference automatically until the user makes an explicit
+   choice. js/theme.js sets data-theme explicitly on first interaction and
+   persists it — this block only matters before JS decides, and as a
+   no-JS fallback. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --color-bg: #0B1420;
+    --color-surface: #101B2B;
+    --color-surface-raised: #162336;
+    --color-surface-muted: #18253A;
+    --color-text: #E9EDF4;
+    --color-text-muted: #A7B2C6;
+    --color-text-subtle: #74809A;
+    --color-border: #223349;
+    --color-border-strong: #324A67;
+    --color-primary: #5B9BD5;
+    --color-primary-hover: #79AEE0;
+    --color-primary-active: #94C1EA;
+    --color-primary-soft: #16283B;
+    --color-accent: #F0A05C;
+    --color-accent-hover: #F5B57D;
+    --color-accent-soft: #2E2013;
+    --color-success: #3FC787;
+    --color-success-soft: #12291F;
+    --color-danger: #E8716F;
+    --color-danger-soft: #2E1717;
+    --color-warning: #E0AC44;
+    --color-warning-soft: #2E2410;
+    --color-info: #5CB2E8;
+    --color-info-soft: #122636;
+    --color-overlay: rgba(3, 8, 16, 0.7);
+  }
+}

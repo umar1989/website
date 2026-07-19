@@ -1,0 +1,151 @@
+/* ==========================================================================
+   RESPONSIVE.CSS
+   style.css is written mobile-first (base rules = smallest screen).
+   This file layers min-width media queries on top to progressively
+   enhance the layout for tablet / desktop / large-desktop.
+
+   Breakpoints (kept as plain comments — custom properties cannot be
+   used inside @media conditions):
+     --bp-sm: 600px   (large phones / small tablets)
+     --bp-md: 900px   (tablets / small laptops)
+     --bp-lg: 1200px  (desktop)
+     --bp-xl: 1440px  (large desktop)
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   >= 600px — large phones / small tablets
+   -------------------------------------------------------------------------- */
+@media (min-width: 600px) {
+  .container {
+    padding-inline: var(--space-6);
+  }
+
+  .grid--2-up {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .site-footer__top {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  h1 { font-size: var(--fs-3xl); }
+  h2 { font-size: var(--fs-2xl); }
+}
+
+/* --------------------------------------------------------------------------
+   >= 900px — tablets / small laptops / desktop navigation kicks in
+   -------------------------------------------------------------------------- */
+@media (min-width: 900px) {
+  .nav-toggle {
+    display: none;
+  }
+
+  /* Desktop nav: inline in the header bar instead of a slide-out drawer */
+  .site-nav {
+    position: static;
+    inset: auto;
+    transform: none;
+    padding: 0;
+    overflow: visible;
+    background: transparent;
+    flex: 1;
+    display: flex;
+    align-items: center;
+  }
+
+  .site-nav__list {
+    flex-direction: row;
+    align-items: center;
+    gap: var(--space-1);
+  }
+
+  .site-nav__link {
+    padding: var(--space-2) var(--space-3);
+  }
+
+  .site-header__bar {
+    gap: var(--space-6);
+  }
+
+  .site-header__search {
+    max-width: 320px;
+    margin-left: auto;
+  }
+
+  .grid--3-up {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .grid--4-up {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .site-footer__top {
+    grid-template-columns: 1.4fr repeat(3, 1fr);
+  }
+
+  .site-footer__bottom {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .form-row > .form-group {
+    flex: 1 1 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   >= 1200px — desktop
+   -------------------------------------------------------------------------- */
+@media (min-width: 1200px) {
+  .container {
+    padding-inline: var(--space-8);
+  }
+
+  .grid--5-up {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  h1 { font-size: var(--fs-3xl); }
+}
+
+/* --------------------------------------------------------------------------
+   >= 1440px — large desktop
+   -------------------------------------------------------------------------- */
+@media (min-width: 1440px) {
+  .container {
+    max-width: 1320px;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   Print styles — used when a page calls window.print() via .print-btn
+   -------------------------------------------------------------------------- */
+@media print {
+  .site-header,
+  .site-footer,
+  .breadcrumbs,
+  .action-bar,
+  .scroll-top-btn,
+  .nav-toggle,
+  .theme-toggle,
+  .ad-slot {
+    display: none !important;
+  }
+
+  body {
+    background: #FFFFFF;
+    color: #000000;
+  }
+
+  a {
+    color: #000000;
+    text-decoration: underline;
+  }
+
+  .container {
+    max-width: 100%;
+    padding: 0;
+  }
+}
